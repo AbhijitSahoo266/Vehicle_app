@@ -12,7 +12,7 @@
 //   }
 // );
 
-module.exports = sequelize;
+// module.exports = sequelize;
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {

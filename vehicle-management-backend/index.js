@@ -22,7 +22,16 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Vehicle Management Backend Running 🚀");
 });
-
+// DB test route
+app.get("/db-test", async (req, res) => {
+  try {
+    await sequelize.authenticate();
+    res.send("✅ Database connected successfully");
+  } catch (error) {
+    console.error(error);
+    res.send("❌ Database connection failed");
+  }
+});
 app.use("/api/auth", authRoutes); // register , login 
 app.use("/api/drivers", require("./src/routes/driver.routes"));
 app.use("/api/vehicles", require("./src/routes/vehicle.routes"));

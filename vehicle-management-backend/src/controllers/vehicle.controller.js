@@ -22,7 +22,7 @@ exports.getById = async (req, res) => {
 
 exports.update = async (req, res) => {
   const vehicle = await Vehicle.findOne({
-    where: { id: req.params.id, userId: req.user.userId },
+    where: { id: req.params.id },
   });
   if (!vehicle) return res.status(404).json({ error: "Vehicle not found" });
 
@@ -39,3 +39,5 @@ exports.remove = async (req, res) => {
   await vehicle.update({ isActive: false });
   res.json({ message: "Vehicle deactivated" });
 };
+
+

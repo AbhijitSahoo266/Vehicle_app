@@ -18,6 +18,28 @@ const Trip = sequelize.define(
       allowNull: false,
     },
 
+    vehicleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Vehicle,
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "RESTRICT",
+    },
+
+    driverId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Driver,
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "RESTRICT",
+    },
+
     startLocation: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -76,6 +98,10 @@ const Trip = sequelize.define(
   }
 );
 
+Trip.belongsTo(Vehicle, { foreignKey: "vehicleId", as: "vehicle" });
+Vehicle.hasMany(Trip, { foreignKey: "vehicleId", as: "trips" });
+Trip.belongsTo(Driver, { foreignKey: "driverId", as: "driver" });
+Driver.hasMany(Trip, { foreignKey: "driverId", as: "trips" });
 
 
 module.exports = Trip;

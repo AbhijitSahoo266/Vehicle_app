@@ -22,16 +22,17 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Vehicle Management Backend Running 🚀");
 });
-// DB test route
-app.get("/db-test", async (req, res) => {
-  try {
+app.get("/db-test",async(req,res)=>{
+  try{
     await sequelize.authenticate();
-    res.send("✅ Database connected successfully");
-  } catch (error) {
+    res.send("database connected sucefully");
+  }catch (error){
     console.error(error);
-    res.send("❌ Database connection failed");
+    res.send("database connection failed")
   }
-});
+
+})
+
 app.use("/api/auth", authRoutes); // register , login 
 app.use("/api/drivers", require("./src/routes/driver.routes"));
 app.use("/api/vehicles", require("./src/routes/vehicle.routes"));
@@ -46,7 +47,7 @@ sequelize
 
 // Sync models → create tables
 sequelize
-  .sync()
+   .sync({ alter: true }) 
   .then(() => console.log("✅ Models synced with DB"))
   .catch((err) => console.error("❌ Model sync failed:", err));
 
